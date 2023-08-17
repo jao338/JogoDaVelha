@@ -23,7 +23,7 @@ function itemClick(event){
 
     let item = event.target.getAttribute('data-item');
 
-    if(square[item] === ""){
+    if(square[item] === "" && playing){
 
         square[item] = player;
 
@@ -102,12 +102,17 @@ function checkGameWinnerFor(player){
 
     for(let w in pos){
         let pArray = pos[w].split(',')
-        pArray.every(option => square[option] === player);
+        let hasWon =  pArray.every(option => square[option] === player);
+
+        if(hasWon){
+            return true;
+        }
     }
 
+    return false;
     /*
         O 'for' acima funciona da mesma que esse aqui abaixo
-        
+
         pArray.every((option) => {
 
             if(square[option] === player){
@@ -120,5 +125,13 @@ function checkGameWinnerFor(player){
 }
 
 function isFull(){
+
+    for(let i in square){
+        if(square[i] === ''){
+            return false;
+        }
+    }
+
+    return true;
 
 }
